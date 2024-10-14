@@ -125,7 +125,7 @@ T2 = Thruster(
     force= 2.2
 )
 T3 = Thruster(
-    position= [0, 1, 1],
+    position= [0, 2, 1],
     point= [0, 1, 0],
     misalignment= [0,0,0],
     force= 2.2
@@ -143,7 +143,7 @@ T5 = Thruster(
     force= 2.2
 )
 T6 = Thruster(
-    position= [0, -1, 1],
+    position= [0, -2, 1],
     point= [0, -1, 0],
     misalignment= [0,0,0],
     force= 2.2
@@ -162,7 +162,7 @@ T8 = Thruster(
     force= 2.2
 )
 T9 = Thruster(
-    position= [0, 1, -1],
+    position= [0, 2, -1],
     point= [0, 1, 0],
     misalignment= [0,0,0],
     force= 2.2
@@ -180,7 +180,7 @@ T11 = Thruster(
     force= 2.2
 )
 T12 = Thruster(
-    position= [0, -1, -1],
+    position= [0, -2, -1],
     point= [0, -1, 0],
     misalignment= [0,0,0],
     force= 2.2
@@ -204,4 +204,4 @@ yrotNeg = Maneuvre([T5, T4, T7, T8])
 zrot = Maneuvre([T1, T4, T7, T10])
 zrotNeg = Maneuvre([T2, T5, T8, T11])
 
-plotThrusters(active=[T1, T2, T3, T4, T5, T6], inactive=[T12, T10, T11])
+plotThrusters(active=[T1, T2, T3, T4, T5, T6] ,inactive=[T7, T8, T9, T10, T11, T12])
