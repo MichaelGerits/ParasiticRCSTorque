@@ -49,22 +49,6 @@ class Thruster:
         else:
             return (self.intendedTorque, self.forceScale * self.forceUnit)
 
-class Maneuvre:
-    def __init__(self, thrusters):
-        self.thrusters = thrusters
-        
-
-    def __str__(self):
-        return f"{self.thrusters}"
-        
-    def preformManeuvre(self, parasitic=True):
-        self.T = np.zeros(3)
-        self.F = np.zeros(3)
-        for thruster in self.thrusters:
-            effect = thruster.calcEffect(parasitic)
-            self.T += effect[0]
-            self.F += effect[1]
-
 def plotThrusters(active = [], inactive = []):
     max_val = 3
     fig = plt.figure( figsize = (10,8) )
@@ -109,99 +93,120 @@ def plotThrusters(active = [], inactive = []):
     ax.set_aspect( 'auto' )	
     plt.show()
 
+class Maneuvre:
+    def __init__(self, thrusters):
+        self.thrusters = thrusters
+        
+
+    def __str__(self):
+        return f"{self.thrusters}"
+        
+    def preformManeuvre(self, parasitic=True):
+        self.T = np.zeros(3)
+        self.F = np.zeros(3)
+        for thruster in self.thrusters:
+            effect = thruster.calcEffect(parasitic)
+            self.T += effect[0]
+            self.F += effect[1]
+        print(f"Force: {self.F}, Torque: {self.T}")
+    def plot(self):
+        plotThrusters(active=self.thrusters)
 '''
-Here all ofthe thrusters are defined
+Here all of the thrusters are defined
 '''
 T1 = Thruster(
-    position= [-1, -1, 1],
-    point= [-1, 0, 0],
-    misalignment= [0,0,0],
-    force= 2.2
-)
-T2 = Thruster(
-    position= [-1, 1, 1],
-    point= [-1, 0, 0],
-    misalignment= [0,0,0],
-    force= 2.2
-)
-T3 = Thruster(
-    position= [0, 2, 1],
+    position= [-0.01, 0.94, 0.74],
     point= [0, 1, 0],
     misalignment= [0,0,0],
-    force= 2.2
+    force= 10
+)
+T2 = Thruster(
+    position= [-0.88, 0.45, 0.74],
+    point= [-1, 0, 0],
+    misalignment= [0,0,0],
+    force= 10
+)
+T3 = Thruster(
+    position= [-0.88, -0.45, 0.74],
+    point= [-1, 0, 0],
+    misalignment= [0,0,0],
+    force= 10
 )
 T4 = Thruster(
-    position= [1, 1, 1],
-    point= [1, 0, 0],
-    misalignment= [0,0,0],
-    force= 2.2
-)
-T5 = Thruster(
-    position= [1, -1, 1],
-    point= [1, 0, 0],
-    misalignment= [0,0,0],
-    force= 2.2
-)
-T6 = Thruster(
-    position= [0, -2, 1],
+    position= [-0.01, -0.99, 0.74],
     point= [0, -1, 0],
     misalignment= [0,0,0],
-    force= 2.2
+    force= 10
+)
+T5 = Thruster(
+    position= [0.88, -0.45, 0.74],
+    point= [1, 0, 0],
+    misalignment= [0,0,0],
+    force= 10
+)
+T6 = Thruster(
+    position= [0.88, 0.45, 0.74],
+    point= [1, 0, 0],
+    misalignment= [0,0,0],
+    force= 10
 )
 
 T7 = Thruster(
-    position= [-1, -1, -1],
-    point= [-1, 0, 0],
-    misalignment= [0,0,0],
-    force= 2.2
-)
-T8 = Thruster(
-    position= [-1, 1, -1],
-    point= [-1, 0, 0],
-    misalignment= [0,0,0],
-    force= 2.2
-)
-T9 = Thruster(
-    position= [0, 2, -1],
+    position= [-0.01, 0.94, -0.72],
     point= [0, 1, 0],
     misalignment= [0,0,0],
-    force= 2.2
+    force= 10
+)
+T8 = Thruster(
+    position= [-0.88, 0.45, -0.72],
+    point= [-1, 0, 0],
+    misalignment= [0,0,0],
+    force= 10
+)
+T9 = Thruster(
+    position= [-0.88, -0.45, -0.72],
+    point= [-1, 0, 0],
+    misalignment= [0,0,0],
+    force= 10
 )
 T10 = Thruster(
-    position= [1, 1, -1],
-    point= [1, 0, 0],
-    misalignment= [0,0,0],
-    force= 2.2
-)
-T11 = Thruster(
-    position= [1, -1, -1],
-    point= [1, 0, 0],
-    misalignment= [0,0,0],
-    force= 2.2
-)
-T12 = Thruster(
-    position= [0, -2, -1],
+    position= [-0.01, -0.99, -0.72],
     point= [0, -1, 0],
     misalignment= [0,0,0],
-    force= 2.2
+    force= 10
+)
+T11 = Thruster(
+    position= [0.88, -0.45, -0.72],
+    point= [1, 0, 0],
+    misalignment= [0,0,0],
+    force= 10
+)
+T12 = Thruster(
+    position= [0.88, 0.45, -0.72],
+    point= [1, 0, 0],
+    misalignment= [0,0,0],
+    force= 10
 )
 
 '''
 Here all of the maneuvres are defined
 '''
-xmove = Maneuvre([T1, T2, T7, T8])
-xmoveNeg = Maneuvre([T4, T5, T10, T11])
+xmove = Maneuvre([T2, T3, T8, T9])
+xmoveNeg = Maneuvre([T5, T6, T11, T12])
 
-ymove = Maneuvre([T6, T12])
-ymoveNeg = Maneuvre([T3, T9])
+ymove = Maneuvre([T4, T10])
+ymoveNeg = Maneuvre([T1, T7])
 
-xrot = Maneuvre([T3, T12])
-xrotNeg = Maneuvre([T6, T9])
+xrot = Maneuvre([T10, T1])
+xrotNeg = Maneuvre([T4, T7])
 
-yrot = Maneuvre([T1, T2, T10, T11])
-yrotNeg = Maneuvre([T5, T4, T7, T8])
+yrot = Maneuvre([T11, T12, T2, T3])
+yrotNeg = Maneuvre([T5, T6, T8, T9])
 
-zrot = Maneuvre([T1, T4, T7, T10])
+zrot = Maneuvre([T3, T6, T9, T12])
 zrotNeg = Maneuvre([T2, T5, T8, T11])
 
-plotThrusters(active=[T1, T2, T3, T4, T5, T6] ,inactive=[T7, T8, T9, T10, T11, T12])
+#plotThrusters(active=[T1, T2, T3, T4, T5, T6] ,inactive=[T7, T8, T9, T10, T11, T12])
+
+ymove.preformManeuvre(parasitic=False)
+ymove.plot()
