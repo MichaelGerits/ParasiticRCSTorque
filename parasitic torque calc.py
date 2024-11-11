@@ -42,10 +42,10 @@ class Thruster:
         '''
         self.intendedTorque = np.cross(self.position, self.forceScale * self.forceUnit)
         self.actualTorque = np.cross(self.position, self.forceScale * self.forceUnitNew)
-        self.parasiticTorque = self.actualTorque - self.actualTorque
+        self.parasiticTorque = self.actualTorque - self.intendedTorque
 
         if parasitic == True:
-            return (self.actualTorque, self.forceScale * self.forceUnitNew)
+            return (self.parasiticTorque, self.forceScale * self.forceUnitNew)
         else:
             return (self.intendedTorque, self.forceScale * self.forceUnit)
 
